@@ -9,12 +9,14 @@ void push(t_node **stack, int value)
     *stack = node;
 }
 
-void pa(t_node **a, t_node **b) {
+void pa(t_node **a, t_node **b) 
+{
     if (is_empty(*b)) return;
     push(a, pop(b));
 }
 
-void pb(t_node **a, t_node **b) {
+void pb(t_node **a, t_node **b) 
+{
     if (is_empty(*a)) return;
     push(b, pop(a));
 }

@@ -12,3 +12,21 @@ void sa(t_node **a)
     second->next = first;
     *a = second;
 }
+
+void sb(t_node **b)
+{
+    if (!*b || !(*b)->next) return;
+    t_node *first = *b;
+    t_node *second = (*b)->next;
+    first->next = second->next;
+    second->next = first;
+    *b = second;
+}
+
+void ss(t_node **a, t_node **b)
+{
+    if (a && *a && (*a)->next)
+        sa(a);
+    if (b && *b && (*b)->next)
+        sb(b);
+}
