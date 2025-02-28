@@ -3,30 +3,34 @@
 // sb (swap b): Swap the first 2 elements at the top of stack b. Do nothing if there is only one or no elements.
 // ss : sa and sb at the same time.
 
-void sa(t_node **a) 
+static void	swap(t_node **head)
 {
-    if (!*a || !(*a)->next) return;
-    t_node *first = *a;
-    t_node *second = (*a)->next;
-    first->next = second->next;
-    second->next = first;
-    *a = second;
+	if (!*head || !(*head)->next)
+		return ;
+	*head = (*head)->next;
+	(*head)->prev->prev = *head;
+	(*head)->prev->next = (*head)->next;
+	if ((*head)->next)
+		(*head)->next->prev = (*head)->prev;
+	(*head)->next = (*head)->prev;
+	(*head)->prev = NULL;
 }
 
-void sb(t_node **b)
+void	sa(t_node **a)
 {
-    if (!*b || !(*b)->next) return;
-    t_node *first = *b;
-    t_node *second = (*b)->next;
-    first->next = second->next;
-    second->next = first;
-    *b = second;
+	swap(a);
+	ft_printf("sa\n");
 }
 
-void ss(t_node **a, t_node **b)
+void	sb(t_node **b)
 {
-    if (a && *a && (*a)->next)
-        sa(a);
-    if (b && *b && (*b)->next)
-        sb(b);
+	swap(b);
+	ft_printf("sb\n");
+}
+
+void	ss(t_node **a, t_node **b)
+{
+	swap(a);
+	swap(b);
+	ft_printf("ss\n");
 }

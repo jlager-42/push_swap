@@ -3,44 +3,35 @@
 // rrb (reverse rotate b): Shift down all elements of stack b by 1. The last element becomes the first one.
 // rrr : rra and rrb at the same time.
 
-void rra(t_node **a) 
+static void reverse_rotate(t_node **stack)
 {
-    if (!*a || !(*a)->next)
-		return;
-    t_node *prev = NULL;
-    t_node *current = *a;
-    while (current->next)
-	{
-        prev = current;
-        current = current->next;
-    }
-    current->next = *a;
-    *a = current;
-    prev->next = NULL;
+	t_node	*last;
+
+	if (!*stack || !(*stack)->next)
+		return ;
+	last = find_last(*stack);
+	last->prev->next = NULL;
+	last->next = *stack;
+	last->prev = NULL;
+	*stack = last;
+	last->next->prev = last;
 }
 
-void rrb(t_node **b)
+void rra(t_node **a) 
 {
-    if (!*b || !(*b)->next)
-		return;
-    t_node *prev = NULL;
-    t_node *current = *b;
+	reverse_rotate(a);
+	ft_printf("rra\n");
+}
 
-    // Traverse to the last node
-    while (current->next) 
-	{
-        prev = current;
-        current = current->next;
-    }
-    current->next = *b;  // Link the last node to the head
-    *b = current;        // Update the head to the last node
-    prev->next = NULL;   // Detach the last node from its previous position
+void rrb(t_node **b) 
+{
+	reverse_rotate(b);
+	ft_printf("rrb\n");
 }
 
 void rrr(t_node **a, t_node **b)
 {
-    if (a && *a && (*a)->next)
-        rra(a);
-    if (b && *b && (*b)->next)
-        rrb(b);
+	reverse_rotate(a);
+	reverse_rotate(a);
+	ft_printf("rrr\n");
 }

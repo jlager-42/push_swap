@@ -3,37 +3,35 @@
 // rb (rotate b): Shift up all elements of stack b by 1. The first element becomes the last one.
 // rr : ra and rb at the same time.
 
-void ra(t_node **a)
+static void rotate(t_node **stack)
 {
-    if (!*a || !(*a)->next)
-		return;
-    t_node *first = *a;
-    t_node *current = *a;
+	t_node	*last;
 
-    while (current->next)
-        current = current->next;
-    *a = first->next; // Move the head to the next node
-    first->next = NULL; // Detach the first node
-    current->next = first; // Link the first node to the end
+	if (!*stack || !(*stack)->next)
+		return ;
+	last = find_last(*stack);
+	last->prev->next = *stack;
+	*stack = (*stack)->next;
+	(*stack)->prev = NULL;
+	last->next->prev = last;
+	last->next->next = NULL;
 }
 
-void rb(t_node **b)
+void ra(t_node **a) 
 {
-    if (!*b || !(*b)->next) return;
-    t_node *first = *b;
-    t_node *current = *b;
+	rotate(a);
+	ft_printf("ra\n");
+}
 
-    while (current->next)
-        current = current->next;
-    *b = first->next; // Move the head to the next node
-    first->next = NULL; // Detach the first node
-    current->next = first; // Link the first node to the end
+void rb(t_node **b) 
+{
+	rotate(b);
+	ft_printf("rb\n");
 }
 
 void rr(t_node **a, t_node **b)
 {
-    if (a && *a && (*a)->next)
-        ra(a);
-    if (b && *b && (*b)->next)
-        rb(b);
+	rotate(a);
+	rotate(a);
+	ft_printf("rr\n");
 }
