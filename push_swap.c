@@ -17,7 +17,6 @@
 // we use the median to find where the the last values in b should go
 // we ra or rra to get the remaining to the correct post
 
-
 void	sort_three(t_node **stack_a)
 {
 	t_node	biggest;
@@ -31,7 +30,7 @@ void	sort_three(t_node **stack_a)
 		sa(stack_a);
 }
 
-void	sort_stacks(t_node **a, t_stack_node **b)
+void	sort_stacks(t_node **a, t_node **b)
 {
 	int	length_a;
 
@@ -55,19 +54,33 @@ void	sort_stacks(t_node **a, t_stack_node **b)
 	min_on_top(a);
 }
 
+bool stack_sorted(t_node *stack)
+{
+	if (!stack)
+		return (1);
+	while (stack->next)
+	{
+		if (stack->value > stack->next->value)
+			return (false);
+		stack = stack->next
+	}
+	return(true);
+}
+
+
 int	main(int argc, char **argv)
 {
 	t_node	*stack_a;
 	t_node	*stack_b;
+	char	**split_srgv;
 
 	stack_a = NULL;
 	stack_b	= NULL;
-
 	if (argc == 1 || (argc == 2 && !argv[1][0]))
 		return (1);
 	else if (argc == 2)
-		argv = ft_split(argv[1], ' ');
-	parse_stack_a(&stack_a, argv + 1);
+		split_argv = ft_split(argv[1], ' ');
+	check_and_set_stack(&stack_a, split_argv + 1);
 	if (!stack_sorted(stack_a))
 	{
 		if (stack_lenght(stack_a) == 2)
@@ -80,3 +93,4 @@ int	main(int argc, char **argv)
 	free_stack(&stack_a);
 	return (0);
 }
+
